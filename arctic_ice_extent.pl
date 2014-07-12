@@ -7,6 +7,7 @@ use autodie;
 use Text::CSV_XS;
 use LWP::Simple qw( getstore );
 use Time::ParseDate qw( parsedate );
+use Chart::Gnuplot;
 
 sub get_data_from {
     my $csv_file = shift;
@@ -52,6 +53,29 @@ sub extract_ice_extent_data {
         print $out_fh $date, " ", $extents{$date}, "\n";
     }
     close $out_fh;
+
+    my @extents = map { $extents{$_} } @dates;
+
+    my $chart = Chart::Gnuplot->new(
+        output => "extents.eps",
+        title => "Sea ice extent over time",
+        xlabel => "Date",
+        ylabel => "Extent (10^6 km)",
+        timeaxis => 'x',
+        xtics => {
+            labelfmt => "%Y-%m-%d",
+            rotate => -90,
+        },
+    );
+
+    my $data_set = Chart::Gnuplot::DataSet->new(
+        xdata => \@dates,
+        ydata => \@extents,
+        style => "lines",
+        timefmt => "%Y-%m-%d",
+    );
+
+    $chart->plot2d($data_set);
 }
 
 extract_ice_extent_data() unless caller();
