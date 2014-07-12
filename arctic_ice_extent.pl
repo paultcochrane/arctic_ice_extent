@@ -24,7 +24,7 @@ sub download_extent_data {
 }
 
 sub get_extents_data {
-    my ($extent_final_file, $extent_nrt_file) = @_;
+    my ($extent_final_file, $extent_nrt_file) = download_extent_data();
 
     my $extents_ref = get_data_from($extent_final_file);
     my %extents = %$extents_ref;
@@ -98,9 +98,7 @@ sub plot_sea_ice_extent {
 }
 
 sub extract_ice_extent_data {
-    my @data_files = download_extent_data();
-   
-    my $extents_data_ref = get_extents_data(@data_files);
+    my $extents_data_ref = get_extents_data();
     my %extents_data = %$extents_data_ref;
 
     my @dates = sort { parsedate($a) <=> parsedate($b) } keys %extents_data;
