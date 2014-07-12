@@ -31,6 +31,18 @@ sub get_data_from {
     return (\%extent_data);
 }
 
+sub save_extent_data {
+    my ($dates_ref, $extents_ref) = @_;
+    my @dates = @$dates_ref;
+    my %extents = %$extents_ref;
+
+    open my $out_fh, ">", "extent_data.dat";
+    for my $date ( @dates ) {
+        print $out_fh $date, " ", $extents{$date}, "\n";
+    }
+    close $out_fh;
+}
+
 sub plot_sea_ice_extent {
     my ($dates_ref, $extents_ref) = @_;
     my @dates = @$dates_ref;
@@ -74,12 +86,8 @@ sub extract_ice_extent_data {
     $extents_ref = get_data_from($extent_nrt_file);
     %extents = (%extents, %$extents_ref);
 
-    open my $out_fh, ">", "extent_data.dat";
     my @dates = sort { parsedate($a) <=> parsedate($b) } keys %extents;
-    for my $date ( @dates ) {
-        print $out_fh $date, " ", $extents{$date}, "\n";
-    }
-    close $out_fh;
+    save_extent_data(\@dates, \%extents);
 
     my @extents = map { $extents{$_} } @dates;
     plot_sea_ice_extent(\@dates, \@extents);
