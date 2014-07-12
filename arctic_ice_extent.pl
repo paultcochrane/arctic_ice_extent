@@ -111,6 +111,11 @@ sub extract_minima {
         $minima{$year} = $extent if $extent < $minima{$year};
     }
 
+    # the first and last minima are outliers and should be ignored
+    my @years = sort keys %minima;
+    delete $minima{$years[0]};
+    delete $minima{$years[-1]};
+
     return \%minima;
 }
 
