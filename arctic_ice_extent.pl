@@ -15,9 +15,10 @@ sub download_extent_data {
     my $extent_final_file = "NH_seaice_extent_final.csv";
     my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
 
-    # download the data files
-    getstore($north_daily_url . $extent_final_file, $extent_final_file);
-    getstore($north_daily_url . $extent_nrt_file, $extent_nrt_file);
+    my $extent_final_url = $north_daily_url . $extent_final_file;
+    my $extent_nrt_url = $north_daily_url . $extent_nrt_file;
+    my $response = getstore($extent_final_url, $extent_final_file);
+    $response = getstore($extent_nrt_url, $extent_nrt_file);
 
     return ($extent_final_file, $extent_nrt_file);
 }
