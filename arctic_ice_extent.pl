@@ -23,7 +23,19 @@ sub download_extent_data {
     return ($extent_final_file, $extent_nrt_file);
 }
 
- sub get_data_from {
+sub get_extents_data {
+    my ($extent_final_file, $extent_nrt_file) = @_;
+
+    my $extents_ref = get_data_from($extent_final_file);
+    my %extents = %$extents_ref;
+
+    $extents_ref = get_data_from($extent_nrt_file);
+    %extents = (%extents, %$extents_ref);
+
+    return \%extents;
+}
+
+sub get_data_from {
     my $csv_file = shift;
 
     my $csv = Text::CSV_XS->new();
@@ -59,6 +71,7 @@ sub save_extent_data {
 
 sub plot_sea_ice_extent {
     my ($dates_ref, $extents_ref) = @_;
+
     my @dates = @$dates_ref;
     my @extents = @$extents_ref;
 
@@ -85,18 +98,15 @@ sub plot_sea_ice_extent {
 }
 
 sub extract_ice_extent_data {
-    my ($extent_final_file, $extent_nrt_file) = download_extent_data();
+    my @data_files = download_extent_data();
    
-    my $extents_ref = get_data_from($extent_final_file);
-    my %extents = %$extents_ref;
+    my $extents_data_ref = get_extents_data(@data_files);
+    my %extents_data = %$extents_data_ref;
 
-    $extents_ref = get_data_from($extent_nrt_file);
-    %extents = (%extents, %$extents_ref);
+    my @dates = sort { parsedate($a) <=> parsedate($b) } keys %extents_data;
+    save_extent_data(\@dates, \%extents_data);
 
-    my @dates = sort { parsedate($a) <=> parsedate($b) } keys %extents;
-    save_extent_data(\@dates, \%extents);
-
-    my @extents = map { $extents{$_} } @dates;
+    my @extents = map { $extents_data{$_} } @dates;
     plot_sea_ice_extent(\@dates, \@extents);
 }
 
