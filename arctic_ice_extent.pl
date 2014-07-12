@@ -5,12 +5,12 @@ use warnings;
 use autodie;
 
 use Text::CSV_XS;
-use LWP::Simple qw( getstore );
+use LWP::Simple qw( getstore is_error );
 use Time::ParseDate qw( parsedate );
 use Chart::Gnuplot;
 
 sub download_extent_data {
-    my $north_daily_url = 
+    my $north_daily_url =
         "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
     my $extent_final_file = "NH_seaice_extent_final.csv";
     my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
@@ -18,7 +18,9 @@ sub download_extent_data {
     my $extent_final_url = $north_daily_url . $extent_final_file;
     my $extent_nrt_url = $north_daily_url . $extent_nrt_file;
     my $response = getstore($extent_final_url, $extent_final_file);
+    warn "Download of $extent_final_file failed" if is_error($response);
     $response = getstore($extent_nrt_url, $extent_nrt_file);
+    warn "Download of $extent_nrt_file failed" if is_error($response);
 
     return ($extent_final_file, $extent_nrt_file);
 }
