@@ -9,7 +9,20 @@ use LWP::Simple qw( getstore );
 use Time::ParseDate qw( parsedate );
 use Chart::Gnuplot;
 
-sub get_data_from {
+sub download_extent_data {
+    my $north_daily_url = \
+        "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
+    my $extent_final_file = "NH_seaice_extent_final.csv";
+    my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
+
+    # download the data files
+    getstore($north_daily_url . $extent_final_file, $extent_final_file);
+    getstore($north_daily_url . $extent_nrt_file, $extent_nrt_file);
+
+    return ($extent_final_file, $extent_nrt_file);
+}
+
+ sub get_data_from {
     my $csv_file = shift;
 
     my $csv = Text::CSV_XS->new();
@@ -71,15 +84,8 @@ sub plot_sea_ice_extent {
 }
 
 sub extract_ice_extent_data {
-    my $north_daily_url = \
-        "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
-    my $extent_final_file = "NH_seaice_extent_final.csv";
-    my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
-
-    # download the data files
-    getstore($north_daily_url . $extent_final_file, $extent_final_file);
-    getstore($north_daily_url . $extent_nrt_file, $extent_nrt_file);
-    
+    my ($extent_final_file, $extent_nrt_file) = download_extent_data();
+   
     my $extents_ref = get_data_from($extent_final_file);
     my %extents = %$extents_ref;
 
