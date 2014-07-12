@@ -31,6 +31,33 @@ sub get_data_from {
     return (\%extent_data);
 }
 
+sub plot_sea_ice_extent {
+    my ($dates_ref, $extents_ref) = @_;
+    my @dates = @$dates_ref;
+    my @extents = @$extents_ref;
+
+    my $chart = Chart::Gnuplot->new(
+        output => "extents.eps",
+        title => "Arctic sea ice extent over time",
+        xlabel => "Date",
+        ylabel => "Extent (10^6 km)",
+        timeaxis => 'x',
+        xtics => {
+            labelfmt => "%Y-%m-%d",
+            rotate => -90,
+        },
+    );
+
+    my $data_set = Chart::Gnuplot::DataSet->new(
+        xdata => \@dates,
+        ydata => \@extents,
+        style => "lines",
+        timefmt => "%Y-%m-%d",
+    );
+
+    $chart->plot2d($data_set);
+}
+
 sub extract_ice_extent_data {
     my $north_daily_url = \
         "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
@@ -55,27 +82,7 @@ sub extract_ice_extent_data {
     close $out_fh;
 
     my @extents = map { $extents{$_} } @dates;
-
-    my $chart = Chart::Gnuplot->new(
-        output => "extents.eps",
-        title => "Sea ice extent over time",
-        xlabel => "Date",
-        ylabel => "Extent (10^6 km)",
-        timeaxis => 'x',
-        xtics => {
-            labelfmt => "%Y-%m-%d",
-            rotate => -90,
-        },
-    );
-
-    my $data_set = Chart::Gnuplot::DataSet->new(
-        xdata => \@dates,
-        ydata => \@extents,
-        style => "lines",
-        timefmt => "%Y-%m-%d",
-    );
-
-    $chart->plot2d($data_set);
+    plot_sea_ice_extent(\@dates, \@extents);
 }
 
 extract_ice_extent_data() unless caller();
