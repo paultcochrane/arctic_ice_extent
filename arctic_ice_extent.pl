@@ -10,7 +10,7 @@ use Time::ParseDate qw( parsedate );
 use Chart::Gnuplot;
 
 sub download_extent_data {
-    my $north_daily_url = \
+    my $north_daily_url = 
         "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
     my $extent_final_file = "NH_seaice_extent_final.csv";
     my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
