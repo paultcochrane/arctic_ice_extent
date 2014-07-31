@@ -6,7 +6,6 @@ use autodie;
 
 use Text::CSV_XS;
 use LWP::Simple qw( getstore is_error );
-use Time::ParseDate qw( parsedate );
 use Chart::Gnuplot;
 
 sub download_extent_data {
@@ -165,7 +164,11 @@ sub extract_ice_extent_data {
     my $extents_data_ref = get_extents_data();
     my %extents_data = %$extents_data_ref;
 
-    my @dates = sort { parsedate($a) <=> parsedate($b) } keys %extents_data;
+    my @dates = sort {
+        my ($year_a, $month_a, $day_a) = split /-/, $a;
+        my ($year_b, $month_b, $day_b) = split /-/, $b;
+        $year_a <=> $year_b || $month_a <=> $month_b || $day_a <=> $day_b;
+        } keys %extents_data;
     save_extent_data(\@dates, \%extents_data);
 
     my @extents = map { $extents_data{$_} } @dates;
