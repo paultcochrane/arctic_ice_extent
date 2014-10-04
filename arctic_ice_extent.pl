@@ -77,7 +77,7 @@ sub plot_sea_ice_extent {
     my @extents = @$extents_ref;
 
     my $chart = Chart::Gnuplot->new(
-        terminal => "png",
+        terminal => "png size 1024,768",
         output => "extents.png",
         title => "Arctic sea ice extent over time",
         xlabel => "Date",
@@ -140,7 +140,7 @@ sub plot_extent_minima {
     my @minima = @$minima_ref;
 
     my $chart = Chart::Gnuplot->new(
-        terminal => "png",
+        terminal => "png size 1024,768",
         output => "minima.png",
         title => "Arctic sea ice extent minima over time",
         xlabel => "Year",
