@@ -10,4 +10,4 @@ install:
     - "cpanm Moose"
     - "cpanm Test::More"
 
-script: make test
+script: prove -lr t
