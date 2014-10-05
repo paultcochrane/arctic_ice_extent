@@ -1,3 +1,7 @@
+<a href="https://travis-ci.org/paultcochrane/arctic_ice_extent">
+<img src="https://travis-ci.org/paultcochrane/arctic_ice_extent.svg?branch=master">
+</a>
+
 # Arctic ice extent
 
 A simple program to plot the arctic sea ice extent data available from the
