@@ -29,8 +29,21 @@ has 'nrt_data' => (
 sub retrieve {
     my $self = shift;
 
+    $self->retrieve_final_data();
+    $self->retrieve_nrt_data();
+}
+
+sub retrieve_final_data {
+    my $self = shift;
+
     my @data = (1, 2, 3, 4);
     $self->final_data(\@data);
+}
+
+sub retrieve_nrt_data {
+    my $self = shift;
+
+    my @data = (1, 2, 3);
     $self->nrt_data(\@data);
 }
 
