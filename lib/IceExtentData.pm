@@ -14,6 +14,12 @@ has 'extent_nrt_file' => (
     default => "NH_seaice_extent_nrt.csv",
 );
 
+has 'final_data' => (
+    is => "rw",
+    isa => "ArrayRef",
+    default => sub { [] },
+);
+
 1;
 
 # vim: expandtab shiftwidth=4 softtabstop=4
