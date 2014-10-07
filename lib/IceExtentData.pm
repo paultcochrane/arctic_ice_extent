@@ -31,6 +31,7 @@ sub retrieve {
 
     my @data = (1, 2, 3, 4);
     $self->final_data(\@data);
+    $self->nrt_data(\@data);
 }
 
 1;
