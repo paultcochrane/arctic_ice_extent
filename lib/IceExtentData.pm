@@ -26,6 +26,13 @@ has 'nrt_data' => (
     default => sub { [] },
 );
 
+sub retrieve {
+    my $self = shift;
+
+    my @data = (1, 2, 3, 4);
+    $self->final_data(\@data);
+}
+
 1;
 
 # vim: expandtab shiftwidth=4 softtabstop=4

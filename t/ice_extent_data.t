@@ -14,6 +14,16 @@ require_ok("IceExtentData");
     isa_ok($ice_extent_data->nrt_data(), 'ARRAY');
 }
 
+{
+    # things to check:
+    # - do we get data?
+    # - is the data CSV formatted?
+    my $ice_extent_data = IceExtentData->new();
+    $ice_extent_data->retrieve();
+    ok(@{$ice_extent_data->final_data()} > 0, "Retrieved 'Final' data nonzero");
+};
+
+
 done_testing();
 
 # vim: expandtab shiftwidth=4 softtabstop=4
