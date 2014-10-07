@@ -11,6 +11,7 @@ require_ok("IceExtentData");
     is($ice_extent_data->extent_final_file(), "NH_seaice_extent_final.csv");
     is($ice_extent_data->extent_nrt_file(), "NH_seaice_extent_nrt.csv");
     isa_ok($ice_extent_data->final_data(), 'ARRAY');
+    isa_ok($ice_extent_data->nrt_data(), 'ARRAY');
 }
 
 done_testing();

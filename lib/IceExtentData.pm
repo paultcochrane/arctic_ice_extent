@@ -20,6 +20,12 @@ has 'final_data' => (
     default => sub { [] },
 );
 
+has 'nrt_data' => (
+    is => "rw",
+    isa => "ArrayRef",
+    default => sub { [] },
+);
+
 1;
 
 # vim: expandtab shiftwidth=4 softtabstop=4
