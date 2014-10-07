@@ -18,15 +18,11 @@ require_ok("IceExtentData");
 }
 
 {
-    # things to check:
-    # - do we get data?
-    # - is the data CSV formatted?
     my $ice_extent_data = IceExtentData->new();
     $ice_extent_data->retrieve();
     ok(@{$ice_extent_data->final_data()} > 0, "Retrieved 'Final' data nonzero");
     ok(@{$ice_extent_data->nrt_data()} > 0, "Retrieved 'NRT' data nonzero");
-};
-
+}
 
 done_testing();
 
