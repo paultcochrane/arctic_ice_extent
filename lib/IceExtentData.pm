@@ -2,6 +2,12 @@ package IceExtentData;
 
 use Moose;
 
+has 'north_daily_url' => (
+    is => "rw",
+    isa => "Str",
+    default => "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/",
+);
+
 has 'extent_final_file' => (
     is => "rw",
     isa => "Str",

@@ -7,7 +7,10 @@ use Test::More;
 require_ok("IceExtentData");
 
 {
+    # check default attributes
     my $ice_extent_data = IceExtentData->new();
+    is($ice_extent_data->north_daily_url(),
+        "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/");
     is($ice_extent_data->extent_final_file(), "NH_seaice_extent_final.csv");
     is($ice_extent_data->extent_nrt_file(), "NH_seaice_extent_nrt.csv");
     isa_ok($ice_extent_data->final_data(), 'ARRAY');
