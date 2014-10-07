@@ -1,3 +1,5 @@
+# ABSTRACT: displays and fits a curve to current Arctic sea-ice extent data
+
 use strict;
 use warnings;
 use autodie;
