@@ -1,6 +1,7 @@
 package IceExtentData;
 
 use Moose;
+use LWP::Simple qw(get);
 
 has 'north_daily_url' => (
     is => "rw",
@@ -42,14 +43,18 @@ sub retrieve {
 sub retrieve_final_data {
     my $self = shift;
 
-    my @data = (1, 2, 3, 4);
+    my $raw_data = get($self->north_daily_url . $self->extent_final_file);
+    my @data = split '\n', $raw_data;
+
     $self->final_data(\@data);
 }
 
 sub retrieve_nrt_data {
     my $self = shift;
 
-    my @data = (1, 2, 3);
+    my $raw_data = get($self->north_daily_url . $self->extent_nrt_file);
+    my @data = split '\n', $raw_data;
+
     $self->nrt_data(\@data);
 }
 

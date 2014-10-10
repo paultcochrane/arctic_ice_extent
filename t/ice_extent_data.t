@@ -19,9 +19,27 @@ require_ok("IceExtentData");
 
 {
     my $ice_extent_data = IceExtentData->new();
+    my $url = "file:///home/cochrane/Projekte/OSSProjekte/arctic_ice_extent/t/data/";
+    $ice_extent_data->north_daily_url($url);
     $ice_extent_data->retrieve();
     ok(@{$ice_extent_data->final_data()} > 0, "Retrieved 'Final' data nonzero");
     ok(@{$ice_extent_data->nrt_data()} > 0, "Retrieved 'NRT' data nonzero");
+}
+
+{
+    my $ice_extent_data = IceExtentData->new();
+    my $url = "file:///home/cochrane/Projekte/OSSProjekte/arctic_ice_extent/t/data/";
+    $ice_extent_data->north_daily_url($url);
+    $ice_extent_data->retrieve();
+
+    my @data = @{$ice_extent_data->final_data()};
+    my $header = 'Year,\s+Month,\s+Day,\s+Extent,\s+Missing,\s+Source Data';
+    ok(@data > 0, "data received from final_data()");
+    like($data[0], qr/$header/, "final data file header");
+
+    @data = @{$ice_extent_data->nrt_data()};
+    ok(@data > 0, "data received from nrt_data()");
+    like($data[0], qr/$header/, "nrt data file header");
 }
 
 done_testing();
