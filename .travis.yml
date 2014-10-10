@@ -13,4 +13,5 @@ install:
     - dzil authordeps --missing | cpanm -n
     - dzil listdeps --missing | cpanm -n
 
-script: dzil test
+script:
+    - dzil test --author --release
