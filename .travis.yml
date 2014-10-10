@@ -9,8 +9,8 @@ perl:
     - "5.10"
 
 install:
-    - "cpanm Dist::Zilla"
-    - "cpanm Moose"
-    - "cpanm Test::More"
+    - cpanm Dist::Zilla
+    - dzil authordeps --missing | cpanm -n
+    - dzil listdeps --missing | cpanm -n
 
 script: dzil test
