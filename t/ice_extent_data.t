@@ -4,6 +4,8 @@ use autodie;
 
 use Test::More;
 
+use Cwd;
+
 require_ok("IceExtentData");
 
 {
@@ -19,7 +21,8 @@ require_ok("IceExtentData");
 
 {
     my $ice_extent_data = IceExtentData->new();
-    my $url = "file:///home/cochrane/Projekte/OSSProjekte/arctic_ice_extent/t/data/";
+    my $path = getcwd();
+    my $url = "file://$path/t/data/";
     $ice_extent_data->north_daily_url($url);
     $ice_extent_data->retrieve();
     ok(@{$ice_extent_data->final_data()} > 0, "Retrieved 'Final' data nonzero");
@@ -28,7 +31,8 @@ require_ok("IceExtentData");
 
 {
     my $ice_extent_data = IceExtentData->new();
-    my $url = "file:///home/cochrane/Projekte/OSSProjekte/arctic_ice_extent/t/data/";
+    my $path = getcwd();
+    my $url = "file://$path/t/data/";
     $ice_extent_data->north_daily_url($url);
     $ice_extent_data->retrieve();
 
