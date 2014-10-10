@@ -44,6 +44,7 @@ sub retrieve_final_data {
     my $self = shift;
 
     my $raw_data = get($self->north_daily_url . $self->extent_final_file);
+    die "No final data available" unless $raw_data;
     my @data = split '\n', $raw_data;
 
     $self->final_data(\@data);
@@ -53,6 +54,7 @@ sub retrieve_nrt_data {
     my $self = shift;
 
     my $raw_data = get($self->north_daily_url . $self->extent_nrt_file);
+    die "No nrt data available" unless $raw_data;
     my @data = split '\n', $raw_data;
 
     $self->nrt_data(\@data);
