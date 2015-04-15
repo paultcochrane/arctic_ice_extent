@@ -1,4 +1,4 @@
 .PHONY: test
 
 test:
-	prove -lr t
+	prove -lr --exec=perl6 t
