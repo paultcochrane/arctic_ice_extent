@@ -9,3 +9,6 @@
 
 - IceExtent::Plot
   - `plot()`
+
+Text::CSV
+SVG::Plot
