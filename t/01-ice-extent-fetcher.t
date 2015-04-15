@@ -9,6 +9,11 @@ use IceExtent::Fetcher;
 
 ok(IceExtent::Fetcher.new(), "IceExtent::Fetcher instantiation");
 
+my $fetcher = IceExtent::Fetcher.new();
+is($fetcher.base-data-url,
+   "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/",
+   "base-data-url default path");
+
 done;
 
 # vim: expandtab shiftwidth=4 ft=perl6
