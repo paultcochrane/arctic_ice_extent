@@ -10,59 +10,7 @@ App::ArcticIceExtent->new->run;
 
 __END__
 
-use Text::CSV_XS;
-use LWP::Simple qw( getstore is_error );
 use Chart::Gnuplot;
-
-sub download_extent_data {
-    my $north_daily_url =
-        "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
-    my $extent_final_file = "NH_seaice_extent_final.csv";
-    my $extent_nrt_file = "NH_seaice_extent_nrt.csv";
-
-    my $extent_final_url = $north_daily_url . $extent_final_file;
-    my $extent_nrt_url = $north_daily_url . $extent_nrt_file;
-    my $response = getstore($extent_final_url, $extent_final_file);
-    warn "Download of $extent_final_file failed" if is_error($response);
-    $response = getstore($extent_nrt_url, $extent_nrt_file);
-    warn "Download of $extent_nrt_file failed" if is_error($response);
-
-    return ($extent_final_file, $extent_nrt_file);
-}
-
-sub get_extents_data {
-    my ($extent_final_file, $extent_nrt_file) = download_extent_data();
-
-    my $extents_ref = get_data_from($extent_final_file);
-    my %extents = %$extents_ref;
-
-    $extents_ref = get_data_from($extent_nrt_file);
-    %extents = (%extents, %$extents_ref);
-
-    return \%extents;
-}
-
-sub get_data_from {
-    my $csv_file = shift;
-
-    my $csv = Text::CSV_XS->new();
-
-    my %extent_data;
-    open my $csv_fh, "<", $csv_file;
-    while (my $row = $csv->getline($csv_fh)) {
-        $row->[0] =~ m/\d{4}/ or next;
-        my $year = int $row->[0];
-        my $month = int $row->[1];
-        my $day = int $row->[2];
-        my $date = sprintf "%04d-%02d-%02d", $year, $month, $day;
-        my $ice_extent = $row->[3];
-        $ice_extent =~ s/\s+//g;
-        $extent_data{$date} = $ice_extent;
-    }
-    close $csv_fh;
-
-    return (\%extent_data);
-}
 
 sub save_extent_data {
     my ($dates_ref, $extents_ref) = @_;
