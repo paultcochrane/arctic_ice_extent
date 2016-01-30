@@ -1,8 +1,9 @@
-# ABSTRACT: displays and fits a curve to current Arctic sea-ice extent data
+package App::ArcticIceExtent;
 
 use strict;
 use warnings;
-use autodie;
+
+our $VERSION = 0.001;
 
 1;
 
