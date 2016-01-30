@@ -1,9 +1,11 @@
 package IceExtent::Data;
 
 use Moo;
+use Types::Standard qw(HashRef);
 use LWP::Simple qw( getstore is_error );
 use Path::Class;
 use File::Copy;
+use Text::CSV_XS;
 
 has archive_fname => (
     is      => 'rw',
@@ -15,13 +17,18 @@ has nrt_fname => (
     default => "NH_seaice_extent_nrt.csv",
 );
 
+has extents => (
+    is      => 'rw',
+    isa     => HashRef,
+    default => sub { return {} },
+);
+
 sub fetch {
     my $self     = shift;
     my $base_url = shift
       // "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
 
-    $base_url =~
-      qr{(ht|f)tp://}
+    $base_url =~ qr{(ht|f)tp://}
       ? $self->_fetch_remote($base_url)
       : $self->_fetch_local($base_url);
 }
@@ -44,14 +51,35 @@ sub _fetch_local {
     my $base_path = shift;
 
     my $archive_file = file( $base_path, $self->archive_fname );
-    my $nrt_file = file( $base_path, $self->nrt_fname );
+    my $nrt_file     = file( $base_path, $self->nrt_fname );
 
     copy( $archive_file, $self->archive_fname );
-    copy( $nrt_file, $self->nrt_fname );
+    copy( $nrt_file,     $self->nrt_fname );
 }
 
 sub load {
-    die "not implemented";
+    my $self = shift;
+
+    $self->_read_csv_data($self->archive_fname);
+    $self->_read_csv_data($self->nrt_fname);
+}
+
+sub _read_csv_data {
+    my ($self, $csv_file) = @_;
+
+    my $csv = Text::CSV_XS->new;
+    open my $csv_fh, "<", $self->archive_fname or die "$!";
+    while (my $row = $csv->getline($csv_fh)) {
+        next unless $row->[0] =~ m/\d{4}/;  # skip non-data rows
+        # force numeric context due to leading whitespace
+        my $year = $row->[0] + 0;
+        my $month = $row->[1] + 0;
+        my $day = $row->[2] + 0;
+        my $date = sprintf "%04d-%02d-%02d", $year, $month, $day;
+        my $ice_extent = $row->[3] + 0;
+        $self->extents->{$date} = $ice_extent;
+    }
+    close $csv_fh;
 }
 
 sub extract_minima {

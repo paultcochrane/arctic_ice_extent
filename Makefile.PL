@@ -14,8 +14,10 @@ WriteMakefile(
         "Chart::Gnuplot" => "0",
         "File::Copy"     => "0",
         "LWP::Simple"    => "0",
+        "Moo"            => "0",
         "Path::Class"    => "0",
         "Text::CSV_XS"   => "0",
+        "Types::Standard" => "0",
     },
 
     TEST_REQUIRES => {

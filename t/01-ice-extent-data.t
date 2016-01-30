@@ -4,7 +4,7 @@ use warnings;
 use lib qw(lib ../lib);
 use Test::More;
 
-my $num_tests = 3;
+my $num_tests = 4;
 $num_tests = $ENV{RELEASE_TESTING} ? ($num_tests+1) : $num_tests;
 plan tests => $num_tests;
 
@@ -70,5 +70,18 @@ if ($ENV{RELEASE_TESTING}) {
         ok time - $nrt_mtime < 60, "nrt extent data file is recent";
     };
 }
+
+subtest "data can be loaded from file correctly" => sub {
+    plan tests => 2;
+
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+
+    is_deeply $data->extents, {}, "Extents data is empty before loading data";
+    $data->load;
+    is $data->extents->{'1978-10-26'}, 10.231, "Extents info contains data";
+};
 
 # vim: expandtab shiftwidth=4 softtabstop=4
