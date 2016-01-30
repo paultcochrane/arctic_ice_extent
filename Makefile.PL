@@ -11,9 +11,11 @@ WriteMakefile(
     LICENSE      => 'perl_5',
 
     BUILD_REQUIRES => {
-        "Text::CSV_XS"   => "0",
-        "LWP::Simple"    => "0",
         "Chart::Gnuplot" => "0",
+        "File::Copy"     => "0",
+        "LWP::Simple"    => "0",
+        "Path::Class"    => "0",
+        "Text::CSV_XS"   => "0",
     },
 
     TEST_REQUIRES => {
