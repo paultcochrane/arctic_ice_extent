@@ -1,5 +1,9 @@
+blib/
 *.swp
 *.csv
 *.dat
 *.eps
 *.png
+*lock.*.ods#
+Makefile
+pm_to_blib
