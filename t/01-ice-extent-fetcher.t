@@ -1,21 +1,18 @@
-use v6;
+use strict;
+use warnings;
 
-use lib 'lib';
-use Test;
+use lib qw(lib ../lib);
+use Test::More tests => 3;
 
-use-ok('IceExtent::Fetcher');
+BEGIN { use_ok('IceExtent::Fetcher'); }
 
-use IceExtent::Fetcher;
+ok(IceExtent::Fetcher->new, "IceExtent::Fetcher instantiation");
 
-ok(IceExtent::Fetcher.new(), "IceExtent::Fetcher instantiation");
-
-my $fetcher = IceExtent::Fetcher.new();
-is($fetcher.base-data-url,
+my $fetcher = IceExtent::Fetcher->new;
+is($fetcher->base_data_url,
    "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/",
-   "base-data-url default path");
+   "base_data_url default path");
 
 # check that data files exist in data directory after download
 
-done;
-
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 softtabstop=4

@@ -1,8 +1,12 @@
-use v6;
+package IceExtent::Fetcher;
 
-class IceExtent::Fetcher {
-    has $.base-data-url =
-        "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/";
-}
+use Moo;
 
-# vim: expandtab shiftwidth=4 ft=perl6
+has base_data_url => (
+    is => 'ro',
+    default => "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/",
+);
+
+1;
+
+# vim: expandtab shiftwidth=4 softtabstop=4
