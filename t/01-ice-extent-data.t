@@ -25,16 +25,16 @@ subtest "data can be downloaded correctly" => sub {
     my $data = IceExtent::Data->new;
     $data->fetch;
 
-    ok -f "NH_seaice_extent_final.csv", "final extent data file exists";
-    ok -f "NH_seaice_extent_nrt.csv",   "nrt extent data file exists";
+    ok -f $data->archive_fname, "archive extent data file exists";
+    ok -f $data->nrt_fname,     "nrt extent data file exists";
 
-    my @final_stat  = stat "NH_seaice_extent_final.csv";
-    my $final_size  = $final_stat[7];
-    my $final_mtime = $final_stat[9];
-    ok $final_size > 0, "final extent data file has nonzero size";
-    ok time - $final_mtime < 60, "final extent data file is recent";
+    my @archive_stat  = stat $data->archive_fname;
+    my $archive_size  = $archive_stat[7];
+    my $archive_mtime = $archive_stat[9];
+    ok $archive_size > 0, "archive extent data file has nonzero size";
+    ok time - $archive_mtime < 60, "archive extent data file is recent";
 
-    my @nrt_stat  = stat "NH_seaice_extent_nrt.csv";
+    my @nrt_stat  = stat $data->nrt_fname;
     my $nrt_size  = $nrt_stat[7];
     my $nrt_mtime = $nrt_stat[9];
     ok $nrt_size > 0, "nrt extent data file has nonzero size";
