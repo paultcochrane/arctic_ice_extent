@@ -2,7 +2,13 @@
 
 use strict;
 use warnings;
-use autodie;
+
+use lib qw(lib);
+use App::ArcticIceExtent;
+
+App::ArcticIceExtent->new->run;
+
+__END__
 
 use Text::CSV_XS;
 use LWP::Simple qw( getstore is_error );
