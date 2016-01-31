@@ -72,16 +72,25 @@ if ( $ENV{RELEASE_TESTING} ) {
 }
 
 subtest "data can be loaded from file correctly" => sub {
-    plan tests => 2;
+    plan tests => 4;
 
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
     $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
 
-    is_deeply $data->extents, {}, "Extents data is empty before loading data";
+    is_deeply $data->extents, [], "Extents array is empty before loading data";
+    is_deeply $data->dates,   [], "Dates array is empty before loading data";
     $data->load;
-    is $data->extents->{'1978-10-26'}, 10.231, "Extents info contains data";
+
+    my @expected_dates   = ( '1978-10-26', '1978-10-28' );
+    my @expected_extents = ( 10.231,       10.42 );
+    my @range            = 0 .. 1;
+    my @dates            = @{ $data->dates }[@range];
+    my @extents          = @{ $data->extents }[@range];
+    is_deeply \@dates, \@expected_dates, "Dates info contains expected data";
+    is_deeply \@extents, \@expected_extents,
+      "Extents info contains expected data";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4

@@ -1,7 +1,7 @@
 package IceExtent::Data;
 
 use Moo;
-use Types::Standard qw(HashRef);
+use Types::Standard qw(ArrayRef);
 use LWP::Simple qw( getstore is_error );
 use Path::Class;
 use File::Copy;
@@ -19,8 +19,14 @@ has nrt_fname => (
 
 has extents => (
     is      => 'rw',
-    isa     => HashRef,
-    default => sub { return {} },
+    isa     => ArrayRef,
+    default => sub { return [] },
+);
+
+has dates => (
+    is      => 'rw',
+    isa     => ArrayRef,
+    default => sub { return [] },
 );
 
 sub fetch {
@@ -77,7 +83,8 @@ sub _read_csv_data {
         my $day = $row->[2] + 0;
         my $date = sprintf "%04d-%02d-%02d", $year, $month, $day;
         my $ice_extent = $row->[3] + 0;
-        $self->extents->{$date} = $ice_extent;
+        push @{$self->dates}, $date;
+        push @{$self->extents}, $ice_extent;
     }
     close $csv_fh;
 }
