@@ -4,14 +4,14 @@ use Moo;
 use Types::Standard qw(ArrayRef HashRef);
 
 has xdata => (
-    is => 'rw',
-    isa => ArrayRef,
+    is       => 'rw',
+    isa      => ArrayRef,
     required => 1,
 );
 
 has ydata => (
-    is => 'rw',
-    isa => ArrayRef,
+    is       => 'rw',
+    isa      => ArrayRef,
     required => 1,
 );
 
