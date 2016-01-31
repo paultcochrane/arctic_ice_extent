@@ -118,4 +118,23 @@ sub extract_minima {
     return (\@years, \@minima);
 }
 
+sub prune {
+    my $self = shift;
+    my $years_to_prune = shift;
+
+    my $ea = each_array(@{$self->dates}, @{$self->extents});
+    my @pruned_extents;
+    my @pruned_dates;
+    while ( my ($date, $extent) = $ea->() ) {
+        $date =~ m/^(\d{4})/;
+        my $year = $1;
+
+        next if grep m/$year/, @{$years_to_prune};
+        push @pruned_dates, $date;
+        push @pruned_extents, $extent;
+    }
+    $self->dates(\@pruned_dates);
+    $self->extents(\@pruned_extents);
+}
+
 1;

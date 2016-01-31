@@ -4,9 +4,9 @@ use warnings;
 use lib qw(lib ../lib);
 use Test::More;
 
-use List::MoreUtils qw(only_index);
+use List::MoreUtils qw(only_index none);
 
-my $num_tests = 5;
+my $num_tests = 6;
 $num_tests = $ENV{RELEASE_TESTING} ? ( $num_tests + 1 ) : $num_tests;
 plan tests => $num_tests;
 
@@ -112,10 +112,22 @@ subtest "minima can be extracted from extents data" => sub {
     is $minima->[0], 10.231, "First minimum value is correct";
 
     my $minimum_2015_index = only_index { $_ == 2015 } @{$years};
-    is $minima->[$minimum_2015_index], 4.341,
-      "Minimum for 2015 correct";
+    is $minima->[$minimum_2015_index], 4.341, "Minimum for 2015 correct";
 };
 
-# $data->trim(start => 1, end => 1);
+subtest "pruning superfluous data works correctly" => sub {
+    plan tests => 1;
+
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+    $data->load;
+    $data->prune( [ 1978, 2016 ] );
+
+    my $dates_are_pruned = none { $_ =~ /^(1978|2016)/ } @{ $data->dates };
+    ok $dates_are_pruned,
+      "Data from the years 1978 and 2016 successfully pruned";
+};
 
 # vim: expandtab shiftwidth=4 softtabstop=4
