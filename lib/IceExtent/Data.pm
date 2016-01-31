@@ -68,7 +68,7 @@ sub _read_csv_data {
     my ($self, $csv_file) = @_;
 
     my $csv = Text::CSV_XS->new;
-    open my $csv_fh, "<", $self->archive_fname or die "$!";
+    open my $csv_fh, "<", $csv_file or die "$!";
     while (my $row = $csv->getline($csv_fh)) {
         next unless $row->[0] =~ m/\d{4}/;  # skip non-data rows
         # force numeric context due to leading whitespace
