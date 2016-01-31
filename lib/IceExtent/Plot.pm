@@ -50,15 +50,21 @@ sub plot {
         },
     );
 
-    my $data_set = Chart::Gnuplot::DataSet->new(
-        xdata => $self->data->[0],
-        ydata => $self->data->[1],
-        style => "lines",
-        timefmt => $self->time_format,
-        width => 2,
-    );
 
-    $chart->plot2d($data_set);
+    my @data_sets;
+    my $xdata = shift @{$self->data};
+    foreach my $ydata ( @{$self->data} ) {
+        my $data_set = Chart::Gnuplot::DataSet->new(
+            xdata => $xdata,
+            ydata => $ydata,
+            style => "lines",
+            timefmt => $self->time_format,
+            width => 2,
+        );
+        push @data_sets, $data_set;
+    }
+
+    $chart->plot2d(@data_sets);
 }
 
 1;

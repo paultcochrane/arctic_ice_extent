@@ -2,7 +2,7 @@ use warnings;
 use strict;
 
 use lib qw(lib ../lib);
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 subtest "basic object structure set up" => sub {
     plan tests => 3;
@@ -90,6 +90,36 @@ subtest "plotting sample minima data works correctly" => sub {
     my $chart = IceExtent::Plot->new(
         data     => [ $years, $minima ],
         title    => "Test minima data",
+        filename => $test_plot_fname,
+        time_format => '%Y',
+    );
+    $chart->plot;
+    qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};
+    ok -f $test_plot_fname, "Test plot file created";
+};
+
+subtest "plot two data sets" => sub {
+    plan tests => 1;
+
+    use IceExtent::Data;
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+    $data->load;
+    $data->prune([1978, 2016]);
+    my ($years, $minima) = $data->extract_minima;
+
+    use IceExtent::LinearFit;
+    my $linear_fit = IceExtent::LinearFit->new( xdata => $years, ydata => $minima );
+    $linear_fit->fit;
+
+    my $test_plot_fname = "test_data.png";
+    unlink $test_plot_fname if -f $test_plot_fname;
+
+    my $chart = IceExtent::Plot->new(
+        data     => [ $years, $minima, $linear_fit->data ],
+        title    => "Test minima data with fit data",
         filename => $test_plot_fname,
         time_format => '%Y',
     );
