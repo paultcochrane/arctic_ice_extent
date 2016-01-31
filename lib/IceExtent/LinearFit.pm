@@ -58,6 +58,14 @@ sub fit {
     $self->R2($square_residual);
 }
 
+sub data {
+    my $self = shift;
+
+    my @ydata = map { $self->a*$_ + $self->b } @{$self->xdata};
+
+    return \@ydata;
+}
+
 1;
 
 # vim: expandtab shiftwidth=4 softtabstop=4

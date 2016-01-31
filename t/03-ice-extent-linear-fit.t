@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use lib qw(lib ../lib);
-use Test::More tests => 2;
+use Test::More tests => 3;
 use Test::Approx;
 
 subtest "basic object setup is correct" => sub {
@@ -30,6 +30,20 @@ subtest "fitting a linear data set gives expected fit" => sub {
       "Fit gives correct 'b' parameter value", $tolerance;
     is_approx_num $linear_fit->R2, 0,
       "Fit gives correct 'R^2' parameter value", $tolerance;
+};
+
+subtest "fit data can be returned" => sub {
+    plan tests => 2;
+
+    my @xdata = ( 1, 2, 3, 4, 5, 6, 7, 8, 9 );
+    my @ydata = map { 2 * $_ } @xdata;
+    my $linear_fit =
+      IceExtent::LinearFit->new( xdata => \@xdata, ydata => \@ydata );
+    $linear_fit->fit;
+
+    my @fit_data = @{$linear_fit->data};
+    is @fit_data, 9, "Fit data has correct length";
+    is_deeply \@fit_data, \@ydata, "Fit data agrees with original data";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4
