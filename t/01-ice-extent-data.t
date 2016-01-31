@@ -5,7 +5,7 @@ use lib qw(lib ../lib);
 use Test::More;
 
 my $num_tests = 4;
-$num_tests = $ENV{RELEASE_TESTING} ? ($num_tests+1) : $num_tests;
+$num_tests = $ENV{RELEASE_TESTING} ? ( $num_tests + 1 ) : $num_tests;
 plan tests => $num_tests;
 
 require_ok('IceExtent::Data');
@@ -47,7 +47,7 @@ subtest "local data can be fetched correctly" => sub {
     ok time - $nrt_mtime < 60, "nrt extent data file is recent";
 };
 
-if ($ENV{RELEASE_TESTING}) {
+if ( $ENV{RELEASE_TESTING} ) {
     subtest "remote data can be fetched correctly" => sub {
         plan tests => 6;
 
