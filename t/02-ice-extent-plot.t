@@ -2,7 +2,7 @@ use warnings;
 use strict;
 
 use lib qw(lib ../lib);
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 subtest "basic object structure set up" => sub {
     plan tests => 3;
@@ -122,6 +122,36 @@ subtest "plot two data sets" => sub {
         title    => "Test minima data with fit data",
         filename => $test_plot_fname,
         R2_value => $linear_fit->R2,
+    );
+    $chart->plot;
+    qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};
+    ok -f $test_plot_fname, "Test plot file created";
+};
+
+subtest "plot minima and polynomial fit" => sub {
+    plan tests => 1;
+
+    use IceExtent::Data;
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+    $data->load;
+    $data->prune([1978, 2016]);
+    my ($years, $minima) = $data->extract_minima;
+
+    use IceExtent::PolyFit;
+    my $poly_fit = IceExtent::PolyFit->new( xdata => $years, ydata => $minima );
+    $poly_fit->fit;
+
+    my $test_plot_fname = "test_data.png";
+    unlink $test_plot_fname if -f $test_plot_fname;
+
+    my $chart = IceExtent::Plot->new(
+        data     => [ $years, $minima, $poly_fit->data ],
+        title    => "Test minima data with polynomial fit data",
+        filename => $test_plot_fname,
+        R2_value => $poly_fit->R2,
     );
     $chart->plot;
     qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};
