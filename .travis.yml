@@ -13,5 +13,4 @@ perl:
 
 install:
     - sudo aptitude update
-    - sudo aptitude search gnuplot
-    - sudo aptitude install gnuplot-nox
+    - sudo aptitude -y install gnuplot-nox
