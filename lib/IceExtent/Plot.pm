@@ -51,6 +51,7 @@ sub plot {
     );
 
     my @line_colours = qw(midnight-blue orange-red);
+    my @dataset_titles = qw(minima fit);
 
     my @data_sets;
     my $xdata = shift @{$self->data};
@@ -63,6 +64,7 @@ sub plot {
             timefmt => $self->time_format,
             width => 2,
             color => $line_colours[$i],
+            title => $dataset_titles[$i],
         );
         push @data_sets, $data_set;
     }
