@@ -29,6 +29,7 @@ sub run {
         data     => [ $years, $minima, $linear_fit->data ],
         title    => "Linear fit",
         filename => "linear_fit.png",
+        R2_value => $linear_fit->R2,
     );
     $linear_chart->plot;
 }
