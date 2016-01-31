@@ -14,3 +14,4 @@ perl:
 install:
     - sudo aptitude update
     - sudo aptitude -y install gnuplot-nox
+    - cpanm --installdeps .
