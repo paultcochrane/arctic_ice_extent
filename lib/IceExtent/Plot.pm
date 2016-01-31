@@ -50,16 +50,19 @@ sub plot {
         },
     );
 
+    my @line_colours = qw(midnight-blue orange-red);
 
     my @data_sets;
     my $xdata = shift @{$self->data};
-    foreach my $ydata ( @{$self->data} ) {
+    for (my $i=0; $i<@{$self->data}; $i++) {
+        my $ydata = $self->data->[$i];
         my $data_set = Chart::Gnuplot::DataSet->new(
             xdata => $xdata,
             ydata => $ydata,
             style => "lines",
             timefmt => $self->time_format,
             width => 2,
+            color => $line_colours[$i],
         );
         push @data_sets, $data_set;
     }
