@@ -1,7 +1,19 @@
 package IceExtent::LinearFit;
 
 use Moo;
-use Types::Standard qw(HashRef);
+use Types::Standard qw(ArrayRef HashRef);
+
+has xdata => (
+    is => 'rw',
+    isa => ArrayRef,
+    required => 1,
+);
+
+has ydata => (
+    is => 'rw',
+    isa => ArrayRef,
+    required => 1,
+);
 
 has params => (
     is => 'rw',
