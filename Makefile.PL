@@ -13,6 +13,7 @@ WriteMakefile(
     BUILD_REQUIRES => {
         "Chart::Gnuplot"  => "0",
         "File::Copy"      => "0",
+        "List::MoreUtils" => "0",
         "LWP::Simple"     => "0",
         "Moo"             => "0",
         "Path::Class"     => "0",
@@ -21,6 +22,7 @@ WriteMakefile(
     },
 
     TEST_REQUIRES => {
+        "List::MoreUtils" => "0",
         "Test::More" => "0",
     },
 

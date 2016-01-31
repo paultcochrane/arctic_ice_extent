@@ -6,6 +6,7 @@ use LWP::Simple qw( getstore is_error );
 use Path::Class;
 use File::Copy;
 use Text::CSV_XS;
+use List::MoreUtils qw(each_array);
 
 has archive_fname => (
     is      => 'rw',
@@ -90,7 +91,31 @@ sub _read_csv_data {
 }
 
 sub extract_minima {
-    die "not implemented";
+    my $self = shift;
+
+    my @dates = @{$self->dates};
+    my @extents = @{$self->extents};
+
+    my $ea = each_array(@dates, @extents);
+    # initial value chosen higher than all measured extents so that first
+    # collected value will definitely be a minium
+    my $previous_extent = 100;
+    my %minima_data;
+    while ( my ($date, $extent) = $ea->() ) {
+        $date =~ m/^(\d{4})/;
+        my $year = $1;
+
+        my $previous_year = (sort keys %minima_data)[-1];
+        if ( $extent < $previous_extent || $year > $previous_year ) {
+            $minima_data{$year} = $extent;
+            $previous_extent = $extent;
+        }
+    }
+
+    my @years = sort keys %minima_data;
+    my @minima = map { $minima_data{$_} } @years;
+
+    return (\@years, \@minima);
 }
 
 1;

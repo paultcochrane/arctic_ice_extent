@@ -4,7 +4,9 @@ use warnings;
 use lib qw(lib ../lib);
 use Test::More;
 
-my $num_tests = 4;
+use List::MoreUtils qw(only_index);
+
+my $num_tests = 5;
 $num_tests = $ENV{RELEASE_TESTING} ? ( $num_tests + 1 ) : $num_tests;
 plan tests => $num_tests;
 
@@ -92,5 +94,28 @@ subtest "data can be loaded from file correctly" => sub {
     is_deeply \@extents, \@expected_extents,
       "Extents info contains expected data";
 };
+
+subtest "minima can be extracted from extents data" => sub {
+    plan tests => 5;
+
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+    $data->load;
+
+    my ( $years, $minima ) = $data->extract_minima;
+    ok @{$years} > 0,  "Years data extracted for minima";
+    ok @{$minima} > 0, "Minima data extracted";
+
+    is $years->[0],  1978,   "First year is correct";
+    is $minima->[0], 10.231, "First minimum value is correct";
+
+    my $minimum_2015_index = only_index { $_ == 2015 } @{$years};
+    is $minima->[$minimum_2015_index], 4.341,
+      "Minimum for 2015 correct";
+};
+
+# $data->trim(start => 1, end => 1);
 
 # vim: expandtab shiftwidth=4 softtabstop=4
