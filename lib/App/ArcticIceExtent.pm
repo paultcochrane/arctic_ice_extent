@@ -11,11 +11,12 @@ sub run {
     $data->fetch;
     $data->load;
 
+    my ($years, $minima) = $data->extract_minima;
+
     my $chart = IceExtent::Plot->new(
-        data => [ $data->dates, $data->extents ],
-        title => "Extents",
-        filename => "blah.png",
-        time_format => '%Y-%m-%d',
+        data => [ $years, $minima ],
+        title => "Arctic Sea Ice Extent Minima",
+        filename => "arctic_sea_ice_extent_minima.png",
     );
     $chart->plot;
 
