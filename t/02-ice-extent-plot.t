@@ -121,7 +121,7 @@ subtest "plot two data sets" => sub {
         data     => [ $years, $minima, $linear_fit->data ],
         title    => "Test minima data with fit data",
         filename => $test_plot_fname,
-        time_format => '%Y',
+        R2_value => $linear_fit->R2,
     );
     $chart->plot;
     qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};

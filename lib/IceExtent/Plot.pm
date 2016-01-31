@@ -34,6 +34,11 @@ has 'time_format' => (
     default => '%Y',
 );
 
+has 'R2_value' => (
+    is => 'rw',
+    isa => Str,
+);
+
 sub plot {
     my $self = shift;
 
@@ -49,6 +54,11 @@ sub plot {
             rotate   => -90,
         },
     );
+
+    $chart->label(
+        text => sprintf("R^2 = %0.4f", $self->R2_value),
+        position => "graph 0.98, 0.9 right",
+    ) if $self->R2_value;
 
     my @line_colours = qw(midnight-blue orange-red);
     my @dataset_titles = qw(minima fit);
@@ -73,3 +83,5 @@ sub plot {
 }
 
 1;
+
+# vim: expandtab shiftwidth=4 softtabstop=4
