@@ -4,6 +4,7 @@ use Moo;
 use IceExtent::Data;
 use IceExtent::Plot;
 use IceExtent::LinearFit;
+use IceExtent::PolyFit;
 
 our $VERSION = 0.001;
 
@@ -32,6 +33,17 @@ sub run {
         R2_value => $linear_fit->R2,
     );
     $linear_chart->plot;
+
+    my $poly_fit = IceExtent::PolyFit->new( xdata => $years, ydata => $minima);
+    $poly_fit->fit;
+
+    my $poly_chart = IceExtent::Plot->new(
+        data  => [ $years, $minima, $poly_fit->data ],
+        title => "Polynomial fit",
+        filename => "poly_fit.png",
+        R2_value => $poly_fit->R2,
+    );
+    $poly_chart->plot;
 }
 
 1;
