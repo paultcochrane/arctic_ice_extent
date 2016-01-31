@@ -11,6 +11,7 @@ WriteMakefile(
     LICENSE      => 'perl_5',
 
     BUILD_REQUIRES => {
+        "Algorithm::CurveFit" => "0",
         "Chart::Gnuplot"  => "0",
         "File::Copy"      => "0",
         "List::MoreUtils" => "0",
@@ -23,6 +24,7 @@ WriteMakefile(
 
     TEST_REQUIRES => {
         "List::MoreUtils" => "0",
+        "Test::Approx" => "0",
         "Test::More" => "0",
     },
 
