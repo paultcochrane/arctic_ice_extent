@@ -10,6 +10,7 @@ sub run {
     my $data = IceExtent::Data->new;
     $data->fetch;
     $data->load;
+    $data->prune( [ 1978, 2016 ] );
 
     my ( $years, $minima ) = $data->extract_minima;
 
