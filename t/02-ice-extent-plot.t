@@ -44,6 +44,7 @@ subtest "plotting simple data works correctly" => sub {
         time_format => '%Y-%m-%d',
     );
     $chart->plot;
+    qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};
     ok -f $test_plot_fname, "Test plot file created";
 };
 
@@ -67,6 +68,7 @@ subtest "plotting sample extent data works correctly" => sub {
         time_format => '%Y-%m-%d',
     );
     $chart->plot;
+    qx{eog $test_plot_fname} if $ENV{RELEASE_TESTING};
     ok -f $test_plot_fname, "Test plot file created";
 };
 
