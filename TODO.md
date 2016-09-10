@@ -1,14 +1,5 @@
-- IceExtent::Fetcher
-  - `get_extent_data()`
-  - `_get_final_data()`
-  - `_get_nrt_data()`
-
-- IceExtent::Data
-  - `read_extents()`
-  - `extract_minima()`
-
-- IceExtent::Plot
-  - `plot()`
-
-Text::CSV
-SVG::Plot
+ - document methods in API
+ - add option to prune only last year in data series (we never want the
+   first year due to incomplete data, and we sometimes want the last year if
+   it is close to or after September)
+ - display the equations of the linear and polynomial fitted curves
