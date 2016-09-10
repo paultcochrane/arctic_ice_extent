@@ -10,12 +10,12 @@ use List::MoreUtils qw(each_array);
 
 has archive_fname => (
     is      => 'rw',
-    default => "NH_seaice_extent_final.csv",
+    default => "NH_seaice_extent_final_v2.csv",
 );
 
 has nrt_fname => (
     is      => 'rw',
-    default => "NH_seaice_extent_nrt.csv",
+    default => "NH_seaice_extent_nrt_v2.csv",
 );
 
 has extents => (
