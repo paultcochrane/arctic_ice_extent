@@ -59,7 +59,7 @@ subtest "fit equation can be returned" => sub {
 };
 
 subtest "roots of fit can be returned" => sub {
-    plan tests => 1;
+    plan tests => 2;
 
     my @xdata = ( -9 .. 9 );
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
@@ -67,7 +67,16 @@ subtest "roots of fit can be returned" => sub {
       IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
 
     my @roots = $poly_fit->roots;
-    my @expected_roots = (-2.5, 1);
+    my @expected_roots = ("-2.50", "1.00");
+    is_deeply \@roots, \@expected_roots, "Roots of fit equation";
+
+    @xdata = ( -9 .. 9 );
+    @ydata = map { 2.457 * $_ * $_ + 1.932 * $_ - 5.198 } @xdata;
+    $poly_fit =
+      IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
+
+    @roots = $poly_fit->roots;
+    @expected_roots = ("-1.90", "1.11");
     is_deeply \@roots, \@expected_roots, "Roots of fit equation";
 };
 

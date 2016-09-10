@@ -90,6 +90,8 @@ sub roots {
     my $self = shift;
 
     my @roots = quadratic_roots($self->a, $self->b, $self->c);
+    @roots = map { sprintf "%.2f", $_ } @roots;
+
     return @roots;
 }
 
