@@ -142,7 +142,6 @@ subtest "plot minima and polynomial fit" => sub {
 
     use IceExtent::PolyFit;
     my $poly_fit = IceExtent::PolyFit->new( xdata => $years, ydata => $minima );
-    $poly_fit->fit;
 
     my $test_plot_fname = "test_data.png";
     unlink $test_plot_fname if -f $test_plot_fname;

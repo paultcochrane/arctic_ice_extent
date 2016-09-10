@@ -38,7 +38,12 @@ has R2 => (
     isa => Num,
 );
 
-sub fit {
+sub BUILD {
+    my ($self, $args) = @_;
+    $self->_fit;
+}
+
+sub _fit {
     my $self = shift;
 
     my $formula = 'c + b * x + a * x^2';

@@ -35,7 +35,6 @@ sub run {
     $linear_chart->plot;
 
     my $poly_fit = IceExtent::PolyFit->new( xdata => $years, ydata => $minima);
-    $poly_fit->fit;
 
     my $poly_chart = IceExtent::Plot->new(
         data  => [ $years, $minima, $poly_fit->data ],

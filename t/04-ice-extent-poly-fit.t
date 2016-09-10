@@ -10,7 +10,7 @@ subtest "basic object setup is correct" => sub {
 
     require_ok('IceExtent::PolyFit');
     can_ok( 'IceExtent::PolyFit', qw(a b c R2) );
-    isa_ok( IceExtent::PolyFit->new( xdata => [], ydata => [] ),
+    isa_ok( IceExtent::PolyFit->new( xdata => [1, 2, 3], ydata => [3, 2, 3] ),
         'IceExtent::PolyFit' );
 };
 
@@ -21,7 +21,6 @@ subtest "fitting a second order polynomial data set gives expected fit" => sub {
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
     my $poly_fit =
       IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
-    $poly_fit->fit;
 
     my $tolerance = 1e-14;
     is_approx_num $poly_fit->a, 2,
@@ -41,7 +40,6 @@ subtest "fit data can be returned" => sub {
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
     my $poly_fit =
       IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
-    $poly_fit->fit;
 
     my @fit_data = @{ $poly_fit->data };
     is @fit_data, 19, "Fit data has correct length";
@@ -55,7 +53,6 @@ subtest "fit equation can be returned" => sub {
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
     my $poly_fit =
       IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
-    $poly_fit->fit;
 
     my $equation = $poly_fit->equation;
     is $equation, "2 x^2 + 3 x + -5", "Fit equation matches input data";
@@ -68,7 +65,6 @@ subtest "roots of fit can be returned" => sub {
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
     my $poly_fit =
       IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
-    $poly_fit->fit;
 
     my @roots = $poly_fit->roots;
     my @expected_roots = (-2.5, 1);
