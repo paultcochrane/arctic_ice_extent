@@ -43,6 +43,9 @@ sub run {
         R2_value => $poly_fit->R2,
     );
     $poly_chart->plot;
+
+    print "Equation of fit: ", $poly_fit->equation, "\n";
+    print "Roots of fit equation: ", join(", ", $poly_fit->roots), "\n";
 }
 
 1;
