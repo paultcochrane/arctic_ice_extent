@@ -3,6 +3,8 @@ package IceExtent::PolyFit;
 use Moo;
 use Types::Standard qw(ArrayRef Num);
 use Algorithm::CurveFit;
+use Math::Complex;
+use Math::Polynomial::Solve qw(:classical);
 
 has xdata => (
     is       => 'rw',
@@ -77,6 +79,13 @@ sub equation {
     my $self = shift;
 
     return sprintf "%.4g x^2 + %.4g x + %.4g", $self->a, $self->b, $self->c;
+}
+
+sub roots {
+    my $self = shift;
+
+    my @roots = quadratic_roots($self->a, $self->b, $self->c);
+    return @roots;
 }
 
 1;
