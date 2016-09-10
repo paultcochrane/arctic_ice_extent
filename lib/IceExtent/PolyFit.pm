@@ -73,6 +73,12 @@ sub data {
     return \@ydata;
 }
 
+sub equation {
+    my $self = shift;
+
+    return sprintf "%.4g x^2 + %.4g x + %.4g", $self->a, $self->b, $self->c;
+}
+
 1;
 
 # vim: expandtab shiftwidth=4 softtabstop=4

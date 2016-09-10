@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use lib qw(lib ../lib);
-use Test::More tests => 3;
+use Test::More tests => 4;
 use Test::Approx;
 
 subtest "basic object setup is correct" => sub {
@@ -46,6 +46,19 @@ subtest "fit data can be returned" => sub {
     my @fit_data = @{ $poly_fit->data };
     is @fit_data, 19, "Fit data has correct length";
     is_deeply \@fit_data, \@ydata, "Fit data agrees with original data";
+};
+
+subtest "fit equation can be returned" => sub {
+    plan tests => 1;
+
+    my @xdata = ( -9 .. 9 );
+    my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
+    my $poly_fit =
+      IceExtent::PolyFit->new( xdata => \@xdata, ydata => \@ydata );
+    $poly_fit->fit;
+
+    my $equation = $poly_fit->equation;
+    is $equation, "2 x^2 + 3 x + -5", "Fit equation matches input data";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4
