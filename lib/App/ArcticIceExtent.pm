@@ -1,12 +1,25 @@
 package App::ArcticIceExtent;
 
 use Moo;
+use Types::Standard qw(Bool);
 use IceExtent::Data;
 use IceExtent::Plot;
 use IceExtent::LinearFit;
 use IceExtent::PolyFit;
 
 our $VERSION = 0.001;
+
+has use_local_data => (
+    is      => 'rw',
+    isa     => Bool,
+    default => 0,
+);
+
+has prune_current_year => (
+    is      => 'rw',
+    isa     => Bool,
+    default => 0,
+);
 
 sub run {
     my $data = IceExtent::Data->new;
