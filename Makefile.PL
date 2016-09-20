@@ -13,16 +13,20 @@ WriteMakefile(
     BUILD_REQUIRES => {
         "Algorithm::CurveFit" => "0",
         "Chart::Gnuplot"  => "0",
+        "Cwd"             => "0",
         "File::Copy"      => "0",
         "List::MoreUtils" => "0",
         "LWP::Simple"     => "0",
+        "Math::Polynomial::Solve" => 0,
         "Moo"             => "0",
         "Path::Class"     => "0",
+        "Pod::Usage"      => "0",
         "Text::CSV_XS"    => "0",
         "Types::Standard" => "0",
     },
 
     TEST_REQUIRES => {
+        "Capture::Tiny" => "0",
         "List::MoreUtils" => "0",
         "Test::Approx" => "0",
         "Test::More" => "0",
