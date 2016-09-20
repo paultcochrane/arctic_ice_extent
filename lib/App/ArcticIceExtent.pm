@@ -29,7 +29,9 @@ sub run {
       ? $data->fetch('./')
       : $data->fetch;
     $data->load;
-    $data->prune( [ 1978, 2016 ] );
+    $self->prune_current_year
+      ? $data->prune( [ 1978, $data->current_year ] )
+      : $data->prune( [1978] );
 
     my ( $years, $minima ) = $data->extract_minima;
 
