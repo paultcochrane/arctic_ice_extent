@@ -22,8 +22,12 @@ has prune_current_year => (
 );
 
 sub run {
+    my $self = shift;
+
     my $data = IceExtent::Data->new;
-    $data->fetch;
+    $self->use_local_data
+      ? $data->fetch('./')
+      : $data->fetch;
     $data->load;
     $data->prune( [ 1978, 2016 ] );
 
