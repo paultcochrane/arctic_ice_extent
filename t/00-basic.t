@@ -1,7 +1,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 6;
+use Capture::Tiny qw(capture);
 
 use lib qw(lib ../lib);
 
@@ -29,6 +30,22 @@ subtest "setting App::ArcticIceExtent attributes" => sub {
 
     $ice_extent->prune_current_year(1);
     is $ice_extent->prune_current_year, 1, "prune-current-year value";
+};
+
+subtest "run routine" => sub {
+    plan tests => 3;
+
+    my $ice_extent = App::ArcticIceExtent->new;
+    $ice_extent->use_local_data(1);
+
+    my ($stdout, $stderr, @result) = capture {
+        $ice_extent->run;
+    };
+
+    like $stdout, qr/Equation of fit/, "equation of fit";
+    like $stdout, qr/Roots of fit equation/, "roots of fit equation";
+
+    is $stderr, "", "stderr is empty";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4

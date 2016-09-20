@@ -4,6 +4,7 @@ use Moo;
 use Types::Standard qw(ArrayRef);
 use LWP::Simple qw( getstore is_error );
 use Path::Class;
+use Cwd qw(abs_path);
 use File::Copy;
 use Text::CSV_XS;
 use List::MoreUtils qw(each_array);
@@ -60,8 +61,11 @@ sub _fetch_local {
     my $archive_file = file( $base_path, $self->archive_fname );
     my $nrt_file     = file( $base_path, $self->nrt_fname );
 
-    copy( $archive_file, $self->archive_fname );
-    copy( $nrt_file,     $self->nrt_fname );
+    copy( $archive_file, $self->archive_fname )
+      unless (abs_path($archive_file) eq abs_path($self->archive_fname));
+
+    copy( $nrt_file, $self->nrt_fname )
+      unless (abs_path($nrt_file) eq abs_path($self->nrt_fname));
 }
 
 sub load {
