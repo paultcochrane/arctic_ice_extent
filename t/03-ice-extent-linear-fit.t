@@ -10,7 +10,7 @@ subtest "basic object setup is correct" => sub {
 
     require_ok('IceExtent::LinearFit');
     can_ok( 'IceExtent::LinearFit', qw(a b R2) );
-    isa_ok( IceExtent::LinearFit->new( xdata => [], ydata => [] ),
+    isa_ok( IceExtent::LinearFit->new( xdata => [1, 2, 3], ydata => [3, 2, 3] ),
         'IceExtent::LinearFit' );
 };
 
@@ -21,7 +21,6 @@ subtest "fitting a linear data set gives expected fit" => sub {
     my @ydata = map { 2 * $_ } @xdata;
     my $linear_fit =
       IceExtent::LinearFit->new( xdata => \@xdata, ydata => \@ydata );
-    $linear_fit->fit;
 
     my $tolerance = 1e-14;
     is_approx_num $linear_fit->a, 2,
@@ -39,7 +38,6 @@ subtest "fit data can be returned" => sub {
     my @ydata = map { 2 * $_ } @xdata;
     my $linear_fit =
       IceExtent::LinearFit->new( xdata => \@xdata, ydata => \@ydata );
-    $linear_fit->fit;
 
     my @fit_data = @{$linear_fit->data};
     is @fit_data, 9, "Fit data has correct length";

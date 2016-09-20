@@ -112,7 +112,6 @@ subtest "plot two data sets" => sub {
 
     use IceExtent::LinearFit;
     my $linear_fit = IceExtent::LinearFit->new( xdata => $years, ydata => $minima );
-    $linear_fit->fit;
 
     my $test_plot_fname = "test_data.png";
     unlink $test_plot_fname if -f $test_plot_fname;

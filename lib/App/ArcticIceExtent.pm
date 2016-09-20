@@ -43,7 +43,6 @@ sub run {
     $chart->plot;
 
     my $linear_fit = IceExtent::LinearFit->new( xdata => $years, ydata => $minima);
-    $linear_fit->fit;
 
     my $linear_chart = IceExtent::Plot->new(
         data     => [ $years, $minima, $linear_fit->data ],
