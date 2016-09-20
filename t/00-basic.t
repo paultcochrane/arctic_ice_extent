@@ -1,10 +1,14 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More;
 use Capture::Tiny qw(capture);
 
 use lib qw(lib ../lib);
+
+my $num_tests = 5;
+$num_tests = $ENV{RELEASE_TESTING} ? ($num_tests + 1) : $num_tests;
+plan tests => $num_tests;
 
 require_ok('App::ArcticIceExtent');
 
@@ -32,20 +36,22 @@ subtest "setting App::ArcticIceExtent attributes" => sub {
     is $ice_extent->prune_current_year, 1, "prune-current-year value";
 };
 
-subtest "run routine" => sub {
-    plan tests => 3;
+if ( $ENV{RELEASE_TESTING} ) {
+    subtest "run routine" => sub {
+        plan tests => 3;
 
-    my $ice_extent = App::ArcticIceExtent->new;
-    $ice_extent->use_local_data(1);
+        my $ice_extent = App::ArcticIceExtent->new;
+        $ice_extent->use_local_data(1);
 
-    my ($stdout, $stderr, @result) = capture {
-        $ice_extent->run;
+        my ($stdout, $stderr, @result) = capture {
+            $ice_extent->run;
+        };
+
+        like $stdout, qr/Equation of fit/, "equation of fit";
+        like $stdout, qr/Roots of fit equation/, "roots of fit equation";
+
+        is $stderr, "", "stderr is empty";
     };
-
-    like $stdout, qr/Equation of fit/, "equation of fit";
-    like $stdout, qr/Roots of fit equation/, "roots of fit equation";
-
-    is $stderr, "", "stderr is empty";
-};
+}
 
 # vim: expandtab shiftwidth=4 softtabstop=4
