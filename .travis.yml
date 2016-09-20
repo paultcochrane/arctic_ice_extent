@@ -12,6 +12,9 @@ perl:
     - "5.12"
     - "5.10"
 
+env:
+    - RELEASE_TESTING=1
+
 install:
     - sudo aptitude update
     - sudo aptitude -y install gnuplot-nox fonts-liberation
