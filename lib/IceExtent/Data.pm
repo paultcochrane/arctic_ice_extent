@@ -137,4 +137,14 @@ sub prune {
     $self->extents(\@pruned_extents);
 }
 
+sub current_year {
+    my $self = shift;
+
+    my $last_date = ${$self->dates}[-1];
+    $last_date =~ m/^(\d{4})-/;
+    my $year = $1;
+
+    return $year;
+}
+
 1;

@@ -6,7 +6,7 @@ use Test::More;
 
 use List::MoreUtils qw(only_index none);
 
-my $num_tests = 6;
+my $num_tests = 7;
 $num_tests = $ENV{RELEASE_TESTING} ? ( $num_tests + 1 ) : $num_tests;
 plan tests => $num_tests;
 
@@ -128,6 +128,19 @@ subtest "pruning superfluous data works correctly" => sub {
     my $dates_are_pruned = none { $_ =~ /^(1978|2016)/ } @{ $data->dates };
     ok $dates_are_pruned,
       "Data from the years 1978 and 2016 successfully pruned";
+};
+
+subtest "current year can be found from data" => sub {
+    plan tests => 1;
+
+    my $data = IceExtent::Data->new;
+    $data->archive_fname("test_archive_data.csv");
+    $data->nrt_fname("test_nrt_data.csv");
+    $data->fetch("test_data");
+    $data->load;
+    my $current_year = $data->current_year;
+
+    is $current_year, 2016, "Current year value is correct";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4
