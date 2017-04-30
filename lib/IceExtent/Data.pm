@@ -11,7 +11,7 @@ use List::MoreUtils qw(each_array);
 
 has archive_fname => (
     is      => 'rw',
-    default => "NH_seaice_extent_final_v2.csv",
+    default => "N_seaice_extent_daily_v2.1.csv",
 );
 
 has extents => (
