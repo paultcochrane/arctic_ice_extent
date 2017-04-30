@@ -72,7 +72,6 @@ sub load {
     my $self = shift;
 
     $self->_read_csv_data($self->archive_fname);
-    $self->_read_csv_data($self->nrt_fname);
 }
 
 sub _read_csv_data {

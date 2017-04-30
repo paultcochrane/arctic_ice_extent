@@ -135,12 +135,11 @@ subtest "current year can be found from data" => sub {
 
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
-    $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
     my $current_year = $data->current_year;
 
-    is $current_year, 2016, "Current year value is correct";
+    is $current_year, 2014, "Current year value is correct";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4
