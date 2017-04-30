@@ -111,8 +111,8 @@ subtest "minima can be extracted from extents data" => sub {
     is $years->[0],  1978,   "First year is correct";
     is $minima->[0], 10.231, "First minimum value is correct";
 
-    my $minimum_2015_index = only_index { $_ == 2015 } @{$years};
-    is $minima->[$minimum_2015_index], 4.341, "Minimum for 2015 correct";
+    my $minimum_2013_index = only_index { $_ == 2013 } @{$years};
+    is $minima->[$minimum_2013_index], 5.040, "Minimum for 2013 correct";
 };
 
 subtest "pruning superfluous data works correctly" => sub {
