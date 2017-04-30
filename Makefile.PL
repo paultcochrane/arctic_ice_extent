@@ -36,9 +36,7 @@ WriteMakefile(
         FILES => q(
           test_data.png
           NH_seaice_extent_final.csv
-          NH_seaice_extent_nrt.csv
           test_archive_data.csv
-          test_nrt_data.csv
           ),
     },
 );

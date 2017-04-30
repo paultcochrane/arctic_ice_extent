@@ -54,7 +54,6 @@ subtest "plotting sample extent data works correctly" => sub {
     use IceExtent::Data;
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
-    $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
 
@@ -78,10 +77,9 @@ subtest "plotting sample minima data works correctly" => sub {
     use IceExtent::Data;
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
-    $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
-    $data->prune([1978, 2016]);
+    $data->prune([1978, 2014]);
     my ($years, $minima) = $data->extract_minima;
 
     my $test_plot_fname = "test_data.png";
@@ -104,7 +102,6 @@ subtest "plot two data sets" => sub {
     use IceExtent::Data;
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
-    $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
     $data->prune([1978, 2016]);
@@ -133,7 +130,6 @@ subtest "plot minima and polynomial fit" => sub {
     use IceExtent::Data;
     my $data = IceExtent::Data->new;
     $data->archive_fname("test_archive_data.csv");
-    $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
     $data->prune([1978, 2016]);

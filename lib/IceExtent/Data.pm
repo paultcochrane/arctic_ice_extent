@@ -14,11 +14,6 @@ has archive_fname => (
     default => "NH_seaice_extent_final_v2.csv",
 );
 
-has nrt_fname => (
-    is      => 'rw',
-    default => "NH_seaice_extent_nrt_v2.csv",
-);
-
 has extents => (
     is      => 'rw',
     isa     => ArrayRef,
@@ -46,12 +41,9 @@ sub _fetch_remote {
     my $base_url = shift;
 
     my $archive_url = $base_url . $self->archive_fname;
-    my $nrt_url     = $base_url . $self->nrt_fname;
 
     my $response = getstore( $archive_url, $self->archive_fname );
     warn "Download of ", $self->archive_fname, " failed" if is_error($response);
-    $response = getstore( $nrt_url, $self->nrt_fname );
-    warn "Download of ", $self->nrt_fname, " failed" if is_error($response);
 }
 
 sub _fetch_local {
@@ -59,13 +51,9 @@ sub _fetch_local {
     my $base_path = shift;
 
     my $archive_file = file( $base_path, $self->archive_fname );
-    my $nrt_file     = file( $base_path, $self->nrt_fname );
 
     copy( $archive_file, $self->archive_fname )
       unless (abs_path($archive_file) eq abs_path($self->archive_fname));
-
-    copy( $nrt_file, $self->nrt_fname )
-      unless (abs_path($nrt_file) eq abs_path($self->nrt_fname));
 }
 
 sub load {
