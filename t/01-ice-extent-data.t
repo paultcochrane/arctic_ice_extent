@@ -123,11 +123,11 @@ subtest "pruning superfluous data works correctly" => sub {
     $data->nrt_fname("test_nrt_data.csv");
     $data->fetch("test_data");
     $data->load;
-    $data->prune( [ 1978, 2016 ] );
+    $data->prune( [ 1978, 2014 ] );
 
-    my $dates_are_pruned = none { $_ =~ /^(1978|2016)/ } @{ $data->dates };
+    my $dates_are_pruned = none { $_ =~ /^(1978|2014)/ } @{ $data->dates };
     ok $dates_are_pruned,
-      "Data from the years 1978 and 2016 successfully pruned";
+      "Data from the years 1978 and 2014 successfully pruned";
 };
 
 subtest "current year can be found from data" => sub {
