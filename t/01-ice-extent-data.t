@@ -19,7 +19,7 @@ subtest "basic object structure set up" => sub {
     isa_ok( $data, 'IceExtent::Data' );
     can_ok( $data, qw(fetch load extract_minima) );
 
-    is $data->archive_fname, "N_seaice_extent_daily_v2.1.csv",
+    is $data->archive_fname, "N_seaice_extent_daily_v3.0.csv",
       "Default archive filename is correct";
 };
 
