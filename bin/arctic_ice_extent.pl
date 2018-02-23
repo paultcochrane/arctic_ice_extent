@@ -25,13 +25,13 @@ arctic_ice_extent
 
 =head1 SYNOPSIS
 
-    arctic_ice_extent [--local-data] [--prune-current-year]
+    arctic_ice_extent [--use-local-data] [--prune-current-year]
 
 =head1 OPTIONS
 
 =over 4
 
-=item local-data
+=item use-local-data
 
 Only use local data for the analysis; don't download new data from the
 remote FTP server.
