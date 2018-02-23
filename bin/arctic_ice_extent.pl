@@ -31,12 +31,12 @@ arctic_ice_extent
 
 =over 4
 
-=item use-local-data
+=item --use-local-data
 
 Only use local data for the analysis; don't download new data from the
 remote FTP server.
 
-=item prune-current-year
+=item --prune-current-year
 
 Prune the data for the current year.  This is necessary when the minimum for
 the current year has not yet happened and the last data point should be
