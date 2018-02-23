@@ -5,6 +5,7 @@ use Types::Standard qw(ArrayRef Num);
 use Algorithm::CurveFit;
 use Math::Complex;
 use Math::Polynomial::Solve qw(:classical);
+use List::Util qw(max);
 
 has xdata => (
     is       => 'rw',
@@ -93,6 +94,12 @@ sub roots {
     @roots = map { sprintf "%.2f", $_ } @roots;
 
     return @roots;
+}
+
+sub max_root {
+    my $self = shift;
+
+    return max($self->roots);
 }
 
 1;

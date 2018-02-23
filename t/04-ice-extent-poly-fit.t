@@ -59,7 +59,7 @@ subtest "fit equation can be returned" => sub {
 };
 
 subtest "roots of fit can be returned" => sub {
-    plan tests => 2;
+    plan tests => 3;
 
     my @xdata = ( -9 .. 9 );
     my @ydata = map { 2 * $_ * $_ + 3 * $_ - 5 } @xdata;
@@ -78,6 +78,9 @@ subtest "roots of fit can be returned" => sub {
     @roots = $poly_fit->roots;
     @expected_roots = ("-1.90", "1.11");
     is_deeply \@roots, \@expected_roots, "Roots of fit equation";
+
+    my $max_root = $poly_fit->max_root;
+    is $max_root, 1.11, "Report maximum root of fit equation";
 };
 
 # vim: expandtab shiftwidth=4 softtabstop=4

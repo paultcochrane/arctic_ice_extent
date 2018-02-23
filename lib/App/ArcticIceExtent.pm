@@ -64,6 +64,7 @@ sub run {
 
     print "Equation of fit: ", $poly_fit->equation, "\n";
     print "Roots of fit equation: ", join(", ", $poly_fit->roots), "\n";
+    print "Max root of fit equation: ", $poly_fit->max_root, "\n";
 }
 
 1;

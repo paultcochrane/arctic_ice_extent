@@ -15,6 +15,7 @@ WriteMakefile(
         "Chart::Gnuplot"  => "0",
         "Cwd"             => "0",
         "File::Copy"      => "0",
+        "List::Util"      => "0",
         "List::MoreUtils" => "0",
         "LWP::Simple"     => "0",
         "Math::Polynomial::Solve" => 0,
