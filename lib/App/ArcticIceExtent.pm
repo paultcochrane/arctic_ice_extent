@@ -65,6 +65,25 @@ sub run {
     print "Equation of fit: ", $poly_fit->equation, "\n";
     print "Roots of fit equation: ", join(", ", $poly_fit->roots), "\n";
     print "Max root of fit equation: ", $poly_fit->max_root, "\n";
+
+    my @prediction_years;
+    my @predicted_years;
+    for (my $i = 20; $i < scalar @$years; $i++) {
+        my $poly_fit = IceExtent::PolyFit->new(
+            xdata => [@$years[0..$i]], ydata => [@$minima[0..$i]] );
+        print "Max root for ", @$years[$i], " = ", $poly_fit->max_root, "\n";
+        if ($poly_fit->max_root < 2100) {
+            push @prediction_years, @$years[$i];
+            push @predicted_years, $poly_fit->max_root;
+        }
+    }
+
+    my $prediction_chart = IceExtent::Plot->new(
+        data => [ \@prediction_years, \@predicted_years ],
+        title => "Predicted year variation",
+        filename => "predicted_year_variation.png",
+    );
+    $prediction_chart->plot;
 }
 
 1;
