@@ -7,7 +7,7 @@ use Path::Class;
 use Cwd qw(abs_path);
 use File::Copy;
 use Text::CSV_XS;
-use List::MoreUtils qw(each_array);
+use List::MoreUtils qw(each_array any);
 
 has archive_fname => (
     is      => 'rw',
@@ -120,7 +120,7 @@ sub prune {
         $date =~ m/^(\d{4})/;
         my $year = $1;
 
-        next if grep m/$year/, @{$years_to_prune};
+        next if any { $_ == $year } @{$years_to_prune};
         push @pruned_dates, $date;
         push @pruned_extents, $extent;
     }
