@@ -93,7 +93,7 @@ sub extract_minima {
     my $previous_extent = 100;
     my %minima_data;
     while ( my ($date, $extent) = $ea->() ) {
-        $date =~ m/^(\d{4})/;
+        $date =~ m/^(\d{4})/ or die "Unable to extract year from date information";
         my $year = $1;
 
         my $previous_year = (sort keys %minima_data)[-1];
@@ -117,7 +117,7 @@ sub prune {
     my @pruned_extents;
     my @pruned_dates;
     while ( my ($date, $extent) = $ea->() ) {
-        $date =~ m/^(\d{4})/;
+        $date =~ m/^(\d{4})/ or die "Unable to extract year from date information";
         my $year = $1;
 
         next if any { $_ == $year } @{$years_to_prune};
@@ -132,7 +132,7 @@ sub current_year {
     my $self = shift;
 
     my $last_date = ${$self->dates}[-1];
-    $last_date =~ m/^(\d{4})-/;
+    $last_date =~ m/^(\d{4})-/ or die "Unable to extract year from date information";
     my $year = $1;
 
     return $year;
