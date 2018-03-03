@@ -66,6 +66,12 @@ sub run {
     print "Roots of fit equation: ", join(", ", $poly_fit->roots), "\n";
     print "Max root of fit equation: ", $poly_fit->max_root, "\n";
 
+    plot_prediction_variation($years, $minima);
+}
+
+sub plot_prediction_variation {
+    my ($years, $minima) = @_;
+
     my @prediction_years;
     my @predicted_years;
     for (my $i = 20; $i < scalar @$years; $i++) {
