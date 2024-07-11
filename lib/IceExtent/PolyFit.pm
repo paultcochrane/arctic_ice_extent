@@ -4,8 +4,11 @@ use Moo;
 use Types::Standard qw(ArrayRef Num);
 use Algorithm::CurveFit;
 use Math::Complex;
-use Math::Polynomial::Solve qw(:classical);
+use Math::Polynomial::Solve qw(:classical coefficients);
 use List::Util qw(max);
+
+
+coefficients order => 'descending';
 
 has xdata => (
     is       => 'rw',
