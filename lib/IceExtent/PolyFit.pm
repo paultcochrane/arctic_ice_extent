@@ -5,7 +5,7 @@ use Types::Standard qw(ArrayRef Num);
 use Algorithm::CurveFit ();
 use Math::Complex ();
 use Math::Polynomial::Solve qw( coefficients quadratic_roots );
-use List::Util qw(max);
+use List::Util qw( max );
 
 
 coefficients order => 'descending';

@@ -4,7 +4,7 @@ use warnings;
 use lib qw(lib ../lib);
 use Test::More import => [qw( can_ok is is_deeply isa_ok ok plan require_ok subtest )];
 
-use List::MoreUtils qw(only_index none);
+use List::MoreUtils qw( none only_index );
 
 my $num_tests = 7;
 $num_tests = $ENV{RELEASE_TESTING} ? ( $num_tests + 1 ) : $num_tests;
