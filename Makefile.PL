@@ -31,6 +31,7 @@ WriteMakefile(
         "List::MoreUtils" => "0",
         "Test::Approx" => "0",
         "Test::More" => "0",
+        "Devel::Cover" => "0",
     },
 
     clean => {
@@ -41,5 +42,16 @@ WriteMakefile(
           ),
     },
 );
+
+# specify additional testing targets
+package MY;
+
+sub MY::postamble {
+    return <<'MAKE_COVER'
+cover :: pure_all
+	cover -test
+
+MAKE_COVER
+}
 
 # vim: expandtab shiftwidth=4 softtabstop=4
