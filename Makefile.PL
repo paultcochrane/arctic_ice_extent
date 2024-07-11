@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME         => 'App::ArcticIceExtent',
     ABSTRACT     => 'Display Arctic sea ice extent over time',
-    AUTHOR       => 'Paul Cochrane <paul@liekut.de>',
+    AUTHOR       => 'Paul Cochrane <paul@peateasea.de>',
     VERSION_FROM => 'lib/App/ArcticIceExtent.pm',
     LICENSE      => 'perl_5',
 
