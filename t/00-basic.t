@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More import => [qw( can_ok is like plan require_ok subtest use_ok )];
 use Capture::Tiny qw(capture);
 
 use lib qw(lib ../lib);

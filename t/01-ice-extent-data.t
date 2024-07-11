@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use lib qw(lib ../lib);
-use Test::More;
+use Test::More import => [qw( can_ok is is_deeply isa_ok ok plan require_ok subtest )];
 
 use List::MoreUtils qw(only_index none);
 
