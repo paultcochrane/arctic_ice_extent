@@ -2,7 +2,7 @@ package IceExtent::Plot;
 
 use Moo;
 use Types::Standard qw(ArrayRef Str);
-use Chart::Gnuplot;
+use Chart::Gnuplot ();
 
 has 'data' => (
     is       => 'rw',

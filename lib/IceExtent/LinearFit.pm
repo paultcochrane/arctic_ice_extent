@@ -2,7 +2,7 @@ package IceExtent::LinearFit;
 
 use Moo;
 use Types::Standard qw(ArrayRef Num);
-use Algorithm::CurveFit;
+use Algorithm::CurveFit ();
 
 has xdata => (
     is       => 'rw',

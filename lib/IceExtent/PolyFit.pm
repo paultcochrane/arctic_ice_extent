@@ -2,9 +2,9 @@ package IceExtent::PolyFit;
 
 use Moo;
 use Types::Standard qw(ArrayRef Num);
-use Algorithm::CurveFit;
-use Math::Complex;
-use Math::Polynomial::Solve qw(:classical coefficients);
+use Algorithm::CurveFit ();
+use Math::Complex ();
+use Math::Polynomial::Solve qw( coefficients quadratic_roots );
 use List::Util qw(max);
 
 
