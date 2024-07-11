@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Getopt::Long;
-use Pod::Usage;
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
 
 use lib qw(lib);
 use App::ArcticIceExtent;
