@@ -1,6 +1,4 @@
-<a href="https://travis-ci.org/paultcochrane/arctic_ice_extent">
-<img src="https://travis-ci.org/paultcochrane/arctic_ice_extent.svg?branch=master">
-</a>
+[![CI](https://github.com/paultcochrane/arctic_ice_extent/actions/workflows/testsuite.yml/badge.svg)](https://github.com/paultcochrane/arctic_ice_extent/actions/workflows/testsuite.yml)
 
 # Arctic ice extent
 
