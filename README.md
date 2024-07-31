@@ -55,14 +55,6 @@ unscientific guess at which year this event will occur and is based *only*
 on an extrapolation of the currently available data and *does not* contain
 any of the associated atmospheric or cryospheric physics.
 
-The generated plots are:
-
-  - Arctic sea-ice extent minima versus year (data only)
-  - Linear fit to the sea-ice extent minima data (with associated R^2 value)
-  - Polynomial fit to the sea-ice extent minima data (with associated R^2
-    value)
-  - Variation in the year of zero sea-ice extent "prediction"
-
 ## Options
 
 ### `--use-local-data`
@@ -80,3 +72,23 @@ value for the current year will be incorrect and will distort the curve fit
 and any derived information.  By removing ("pruning") the current year's
 value from the data, one avoids such distortion.  When running the program
 in (say) October, this option should not be necessary.
+
+## Plots
+
+The program generates the following plots
+
+### Arctic sea-ice extent minima versus year (data only)
+
+![Arctic sea-ice extent minima versus year (data only)](images/arctic_sea_ice_extent_minima.png)
+
+### Linear fit to the sea-ice extent minima data (with associated R^2 value)
+
+![Linear fit to the sea-ice extent minima data](images/linear_fit.png)
+
+### Polynomial fit to the sea-ice extent minima data (with associated R^2 value)
+
+![Polynomial fit to the sea-ice extent minima data](images/poly_fit.png)
+
+### Variation in the year of zero sea-ice extent "prediction"
+
+![Variation in the year of zero sea-ice extent "prediction"](images/predicted_year_variation.png)
